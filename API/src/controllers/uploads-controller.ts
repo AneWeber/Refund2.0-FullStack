@@ -12,19 +12,19 @@ class UploadsController {
     try {
       const fileSchema = z
         .object({
-          filename: z.string().min(1, "Arquivo é obrigatório"),
+          filename: z.string().min(1, "Submit a file"),
           mimetype: z
             .string()
             .refine(
               (type) => uploadConfig.ACCEPTED_IMAGE_TYPES.includes(type),
-              "Formato de arquivo inválido. Apenas JPEG, PNG e PDF são permitidos."
+              "Invalid file format. Only JPEG, PNG, and PDF files are allowed."
             ),
           size: z
             .number()
             .positive()
             .refine(
               (size) => size <= uploadConfig.MAX_FILE_SIZE,
-              "Arquivo excede o tamanho máximo de 5MB."
+              "File exceeds the maximum size of 5MB.."
             ),
         })
         .passthrough() // Permite propriedades adicionais que o multer adiciona ao arquivo
